@@ -3,6 +3,7 @@ import React from 'react'
 import './App.css'
 import {Link, Route} from "react-router-dom";
 import SearchPage from "./SearchPage";
+import {getAll} from "./BooksAPI";
 
 class BooksApp extends React.Component {
     state = {
@@ -15,15 +16,21 @@ class BooksApp extends React.Component {
         showSearchPage: false
     }
 
+    componentDidMount() {
+        getAll().then(response => {
+            console.log(response)
+        })
+    }
+
     render() {
         return (
             <div>
-                <Route path={'/'} exact render={() => (
-                    <div className="app">
-                        <div className="list-books">
-                            <div className="list-books-title">
-                                <h1>MyReads</h1>
-                            </div>
+                <div className="app">
+                    <div className="list-books">
+                        <div className="list-books-title">
+                            <h1>MyReads</h1>
+                        </div>
+                        <Route path={'/'} exact render={() => (
                             <div className="list-books-content">
                                 <div>
                                     <div className="bookshelf">
@@ -210,19 +217,21 @@ class BooksApp extends React.Component {
                                             </ol>
                                         </div>
                                     </div>
+
+                                    <div className="open-search">
+                                        <Link to={'/search'}>
+                                            <button onClick={() => this.setState({showSearchPage: true})}>Add a book
+                                            </button>
+                                        </Link>
+
+                                    </div>
                                 </div>
+                                )}
                             </div>
-                            <div className="open-search">
-                                <Link to={'/search'}>
-                                    <button onClick={() => this.setState({showSearchPage: true})}>Add a book</button>
-                                </Link>
-                                {/**/}
-                            </div>
-                        </div>
-                        )}
+                        )}/>
+                        <Route path={'/search'} exact component={SearchPage}/>
                     </div>
-                )}/>
-                <Route path={'/search'} exact component={SearchPage}/>
+                </div>
             </div>
         )
     }
