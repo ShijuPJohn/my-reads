@@ -4,14 +4,13 @@ This is the starter template for the final assessment project for Udacity's Reac
 
 Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
 
-## TL;DR
 
 This is a book listing application done in React. After opening the application, we can search for books, and add it to our library. 
-In the library, there are three sections. Currently, reading, Want to read, and read.
+In the library, there are three sections. Currently reading, Want to read, and read.
 We can switch a book between these sections by clicking on the drop down menu. 
 When a book is changed from its current section, we update it on the backend as well, so the application will preserve its state after restarts.
 
-To get started developing right away:
+##To get started developing right away:
 
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
