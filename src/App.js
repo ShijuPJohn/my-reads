@@ -1,30 +1,44 @@
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
-import {Link, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import SearchPage from "./components/SearchPage";
-import {get, getAll} from "./BooksAPI";
+import {getAll, search, update} from "./BooksAPI";
 import BookShelves from "./components/BookShelves";
 
 class BooksApp extends React.Component {
-    state = {
-        /**
-         * TODO: Instead of using this state variable to keep track of which page
-         * we're on, use the URL in the browser's address bar. This will ensure that
-         * users can use the browser's back and forward buttons to navigate between
-         * pages, as well as provide a good URL they can bookmark and share.
-         */
-        showSearchPage: false
+    constructor(props) {
+        super(props);
+        this.updateBook = this.updateBook.bind(this);
+        this.state = {
+            books: []
+        }
+    }
+
+    async searchBooks(query) {
+        return await search(query).then((response) => {
+            return response
+        })
     }
 
     componentDidMount() {
         getAll().then(response => {
-            console.log(response)
-        })
-        get('nggnmAEACAAJ').then(response => {
-            console.log(response)
-        })
+            this.setState(prevState => ({
+                books: response
+            }))
+        });
     }
+
+    updateBook(bookId, shelf) {
+        update({id: bookId}, shelf);
+        const books = [...this.state.books];
+        (books.find((item) => item.id === bookId)).shelf = shelf;
+        this.setState(_ => ({
+            books: books
+        }));
+
+    }
+
 
     render() {
         return (
@@ -35,14 +49,17 @@ class BooksApp extends React.Component {
                             <h1>MyReads</h1>
                         </div>
                         <Route path={'/'} exact render={() => (
-                            <BookShelves/>
+                            <BookShelves books={this.state.books} updateFunction={this.updateBook}/>
                         )}/>
-                        <Route path={'/search'} exact component={SearchPage}/>
+                        <Route path={'/search'} exact render={() => (
+                            <SearchPage books={this.state.books} updateFunction={this.updateBook}
+                                        searchFunction={this.searchBooks}/>
+                        )}/>
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 
-export default BooksApp
+export default BooksApp;

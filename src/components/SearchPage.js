@@ -1,7 +1,27 @@
 import React, {Component} from "react";
+import BookshelfBooks from "./BookshelfBooks";
 
 class SearchPage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            searchQuery: '',
+            displayBooks: [],
+        }
+    }
+
+    onSearch = async (event) => {
+        const searchString = event.target.value;
+        const displayBooks = await this.props.searchFunction(searchString)
+        this.setState((prevState) => ({
+            displayBooks: displayBooks
+        }))
+
+    }
+
     render() {
+        console.log(this.state.displayBooks)
         return (
             <div>
                 <div className="search-books">
@@ -19,12 +39,14 @@ class SearchPage extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                            <input type="text" placeholder="Search by title or author"/>
+                            <input onChange={this.onSearch} type="text" placeholder="Search by title or author"/>
 
                         </div>
                     </div>
                     <div className="search-books-results">
-                        <ol className="books-grid"></ol>
+                        <ol className="books-grid">
+                            {this.state.displayBooks && <BookshelfBooks books={this.state.displayBooks}/>}
+                        </ol>
                     </div>
                 </div>
             </div>

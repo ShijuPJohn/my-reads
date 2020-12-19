@@ -1,23 +1,29 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import BookshelfBooks from "./BookshelfBooks";
+import {getAll} from "../BooksAPI";
 
 class BookShelves extends Component {
+
     render() {
+        const {books, updateFunction} = this.props;
         return (
             <div className="list-books-content">
                 <div>
                     <div className="bookshelf">
                         <h2 className="bookshelf-title">Currently Reading</h2>
-                        <BookshelfBooks/>
+                        <BookshelfBooks books={books.filter(book => book.shelf === 'currentlyReading')}
+                                        updateFunction={updateFunction}/>
                     </div>
                     <div className="bookshelf">
                         <h2 className="bookshelf-title">Want to Read</h2>
-                        <BookshelfBooks/>
+                        <BookshelfBooks books={books.filter(book => book.shelf === 'wantToRead')}
+                                        updateFunction={updateFunction}/>
                     </div>
                     <div className="bookshelf">
                         <h2 className="bookshelf-title">Read</h2>
-                        <BookshelfBooks/>
+                        <BookshelfBooks books={books.filter(book => book.shelf === 'read')}
+                                        updateFunction={updateFunction}/>
                     </div>
 
                     <div className="open-search">
@@ -28,7 +34,6 @@ class BookShelves extends Component {
 
                     </div>
                 </div>
-                )}
             </div>
         );
     }
