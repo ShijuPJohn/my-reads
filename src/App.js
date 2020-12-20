@@ -1,9 +1,8 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 import {Route} from "react-router-dom";
 import SearchPage from "./components/SearchPage";
-import {getAll, search, update} from "./BooksAPI";
+import {get, getAll, search, update} from "./BooksAPI";
 import BookShelves from "./components/BookShelves";
 
 class BooksApp extends React.Component {
@@ -29,14 +28,21 @@ class BooksApp extends React.Component {
         });
     }
 
-    updateBook(bookId, shelf) {
+    async updateBook(bookId, shelf) {
         update({id: bookId}, shelf);
-        const books = [...this.state.books];
-        (books.find((item) => item.id === bookId)).shelf = shelf;
+        let books = [...this.state.books];
+        const bookInState = books.find((item) => item.id === bookId)
+        if (bookInState !== undefined) {
+            bookInState.shelf = shelf;
+        } else {
+            const book = await get(bookId);
+            book.shelf = shelf;
+            books = [...this.state.books, book]
+        }
+
         this.setState(_ => ({
             books: books
         }));
-
     }
 
 
