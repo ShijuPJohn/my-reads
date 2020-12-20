@@ -22,7 +22,6 @@ class SearchPage extends Component {
                 this.props.books.forEach((itemState) => {
                     if (itemState.id === itemFetched.id) {
                         displayBooks[indexF] = itemState
-
                     }
                 })
             })
@@ -49,7 +48,7 @@ class SearchPage extends Component {
                         <ol className="books-grid">
                             {this.state.displayBooks && Array.isArray(this.state.displayBooks) &&
                             <BookshelfBooks books={this.state.displayBooks}
-                                            updateFunction={this.props.updateFunction}/>}
+                                            updateFunction={this.props.updateFunction} shelf={''}/>}
                         </ol>
                     </div>
                 </div>
