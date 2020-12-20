@@ -22,7 +22,7 @@ class BooksApp extends React.Component {
 
     componentDidMount() {
         getAll().then(response => {
-            this.setState(prevState => ({
+            this.setState(() => ({
                 books: response
             }))
         });

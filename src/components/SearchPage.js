@@ -27,7 +27,7 @@ class SearchPage extends Component {
                 })
             })
         }
-        this.setState((_) => ({
+        this.setState(() => ({
             displayBooks: displayBooks
         }))
     }
@@ -42,9 +42,7 @@ class SearchPage extends Component {
                             </button>
                         </Link>
                         <div className="search-books-input-wrapper">
-
                             <input onChange={this.onSearch} type="text" placeholder="Search by title or author"/>
-
                         </div>
                     </div>
                     <div className="search-books-results">

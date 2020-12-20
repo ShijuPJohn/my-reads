@@ -10,7 +10,7 @@ In the library, there are three sections. Currently reading, Want to read, and r
 We can switch a book between these sections by clicking on the drop down menu. 
 When a book is changed from its current section, we update it on the backend as well, so the application will preserve its state after restarts.
 
-##To get started developing right away:
+## To get started developing right away:
 
 * install all project dependencies with `npm install`
 * start the development server with `npm start`

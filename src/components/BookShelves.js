@@ -27,8 +27,8 @@ const BookShelves = (props) => {
                     <Link to={'/search'}>
                         <button>Add a book</button>
                     </Link>
-
                 </div>
+
             </div>
         </div>
     );

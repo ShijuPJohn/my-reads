@@ -2,13 +2,16 @@ import React from "react";
 
 const SingleBook = (props) => {
     const {book, updateFunction} = props;
+
     return (
         <div className="book">
             <div className="book-top">
                 <div className="book-cover" style={{
                     width: 128,
                     height: 193,
-                    backgroundImage: book.imageLinks && `url(${book.imageLinks.thumbnail})`
+                    backgroundImage: (Object.keys(book).indexOf('imageLinks') > -1)
+                        && (Object.keys(book.imageLinks).indexOf('thumbnail') > -1)
+                        && `url(${book.imageLinks.thumbnail})`
                 }}/>
                 <div className="book-shelf-changer">
                     <select defaultValue={book.shelf ? book.shelf : 'none'} onChange={(event) => {
