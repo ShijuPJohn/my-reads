@@ -9,9 +9,7 @@ const SingleBook = (props) => {
                 <div className="book-cover" style={{
                     width: 128,
                     height: 193,
-                    backgroundImage: (Object.keys(book).indexOf('imageLinks') > -1)
-                        && (Object.keys(book.imageLinks).indexOf('thumbnail') > -1)
-                        && `url(${book.imageLinks.thumbnail})`
+                    backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail : ""})` //display blank space if thumbnail is not available
                 }}/>
                 <div className="book-shelf-changer">
                     <select defaultValue={book.shelf ? book.shelf : 'none'} onChange={(event) => {
